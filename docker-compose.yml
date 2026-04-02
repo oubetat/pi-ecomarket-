@@ -1,0 +1,22 @@
+# Exported from Render on 2026-04-02T14:51:53Z
+version: "1"
+projects:
+- name: pi-ecomarket
+  services:
+  - type: web
+    name: pi-ecomarket
+    runtime: node
+    repo: https://github.com/oubetat/pi-ecomarket
+    branch: pi-ecomarket
+    plan: free
+    region: oregon
+    rootDir: pi-ecomarket
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb+srv://oubetat1_db_user:t3MwFvZuPdSHe5uy@ecomarket.kqomsrd.mongodb.net/ECOMARKET?retryWrites=true&w=majority
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
