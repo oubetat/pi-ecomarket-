@@ -1,13 +1,10 @@
-const express = require("express");
-const Product = require("../models/Product");
-const router = express.Router();
+const mongoose = require("mongoose");
 
-router.get("/", async (req,res)=> res.json(await Product.find()));
-
-router.post("/", async (req,res)=>{
-  const product = new Product(req.body);
-  await product.save();
-  res.json({message:"✅ Product added"});
+const productSchema = new mongoose.Schema({
+  name: String,
+  priceDollar: Number,
+  priceGCV: Number,
+  ecoReward: { type: Number, default: 0 }
 });
 
-module.exports = router;
+module.exports = mongoose.model("Product", productSchema);
