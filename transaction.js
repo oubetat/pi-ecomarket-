@@ -1,13 +1,10 @@
-const express = require("express");
-const Transaction = require("../models/Transaction");
-const router = express.Router();
+const mongoose = require("mongoose");
 
-router.get("/", async (req,res)=> res.json(await Transaction.find()));
-
-router.post("/", async (req,res)=>{
-  const transaction = new Transaction(req.body);
-  await transaction.save();
-  res.json({message:"✅ Transaction added"});
+const transactionSchema = new mongoose.Schema({
+  user: String,
+  product: String,
+  amount: Number,
+  date: { type: Date, default: Date.now }
 });
 
-module.exports = router;
+module.exports = mongoose.model("Transaction", transactionSchema);

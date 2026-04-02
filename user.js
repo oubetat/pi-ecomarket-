@@ -1,21 +1,9 @@
-const express = require("express");
-const User = require("../models/User");
-const router = express.Router();
+const mongoose = require('mongoose');
 
-router.get("/", async (req,res)=> res.json(await User.find()));
-
-router.post("/", async (req,res)=>{
-  const user = new User(req.body);
-  await user.save();
-  res.json({message:"✅ User added"});
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  points: { type: Number, default: 0 },
+  level: { type: Number, default: 1 }
 });
 
-router.put("/:id/reward", async (req,res)=>{
-  const user = await User.findById(req.params.id);
-  user.points += req.body.points;
-  if(user.points > 100) user.level++;
-  await user.save();
-  res.json(user);
-});
-
-module.exports = router;
+module.exports = mongoose.model('User', userSchema);

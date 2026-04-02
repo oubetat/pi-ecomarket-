@@ -1,13 +1,9 @@
-const express = require("express");
-const Reward = require("../models/Reward");
-const router = express.Router();
+const mongoose = require("mongoose");
 
-router.get("/", async (req,res)=> res.json(await Reward.find()));
-
-router.post("/", async (req,res)=>{
-  const reward = new Reward(req.body);
-  await reward.save();
-  res.json({message:"✅ Reward added"});
+const rewardSchema = new mongoose.Schema({
+  name: String,
+  levelRequired: Number,
+  ecoPoints: Number
 });
 
-module.exports = router;
+module.exports = mongoose.model("Reward", rewardSchema);
